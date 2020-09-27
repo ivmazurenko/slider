@@ -33,21 +33,6 @@ import com.ctrader.matslider.RangeSlider.OnSliderTouchListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A range slider can be used to select from either a continuous or a discrete set of values. The
- * default is to use a continuous range of values from valueFrom to valueTo.
- *
- * <p>{@inheritDoc}
- *
- * <p>{@code app:values}: <b>Optional.</b> The initial values of the range slider. If not specified,
- * the range slider will only have one value equal to {@code android:valueFrom}
- *
- * <p>{@code app:minSeparation}: <b>Optional.</b> The minimum distance between two thumbs that would
- * otherwise overlap.
- *
- * @attr ref com.google.android.material.R.styleable#RangeSlider_values
- * @attr ref com.google.android.material.R.styleable#RangeSlider_minSeparation
- */
 public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSliderTouchListener> {
 
   private float minSeparation;
@@ -75,36 +60,21 @@ public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSli
     a.recycle();
   }
 
-  /**
-   * Interface definition for a callback invoked when a slider's value is changed. This is called
-   * for all existing values to check all the current values use {@see RangeSlider#getValues()}
-   */
   public interface OnChangeListener extends BaseOnChangeListener<RangeSlider> {}
 
-  /** Interface definition for a callback invoked when a slider's value is changed. */
   public interface OnSliderTouchListener extends BaseOnSliderTouchListener<RangeSlider> {}
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see #getValues()
-   */
   @Override
   public void setValues(@NonNull Float... values) {
     super.setValues(values);
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * @see #getValues()
-   */
   @Override
   public void setValues(@NonNull List<Float> values) {
     super.setValues(values);
   }
 
-  /** Returns current values of the slider thumbs. */
+
   @NonNull
   @Override
   public List<Float> getValues() {

@@ -314,8 +314,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
 
     @Override
     public int getOpacity() {
-        // OPAQUE or TRANSPARENT are possible, but the complexity of determining this based on the
-        // shape model outweighs the optimizations gained.
         return PixelFormat.TRANSLUCENT;
     }
 
