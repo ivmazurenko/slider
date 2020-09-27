@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
 
-
 public class ShadowRenderer {
 
     private static final int COLOR_ALPHA_START = 0x44;

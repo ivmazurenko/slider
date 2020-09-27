@@ -69,13 +69,11 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
 
     private MaterialShapeDrawableState drawableState;
 
-    // Inter-method state.
     private final ShadowCompatOperation[] cornerShadowOperation = new ShadowCompatOperation[4];
     private final ShadowCompatOperation[] edgeShadowOperation = new ShadowCompatOperation[4];
     private final BitSet containsIncompatibleShadowOp = new BitSet(8);
     private boolean pathDirty;
 
-    // Pre-allocated objects that are re-used several times during path computation and rendering.
     private final Matrix matrix = new Matrix();
     private final Path path = new Path();
     private final Path pathInsetByStroke = new Path();
@@ -91,9 +89,7 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
     private final ShadowRenderer shadowRenderer = new ShadowRenderer();
     @NonNull
     private final PathListener pathShadowListener;
-    // Most drawables in the lib will be used by Views in the UI thread. Since the
-    // ShapeAppearancePathProvider instance is not ThreadSafe, due to internal state,
-    // account for the case when using a MaterialShapeDrawable outside the main thread.
+
     private final ShapeAppearancePathProvider pathProvider =
             Looper.getMainLooper().getThread() == Thread.currentThread()
                     ? ShapeAppearancePathProvider.getInstance()
@@ -176,7 +172,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         return drawableState.shapeAppearanceModel;
     }
 
-
     public void setFillColor(@Nullable ColorStateList fillColor) {
         if (drawableState.fillColor != fillColor) {
             drawableState.fillColor = fillColor;
@@ -216,7 +211,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         updateTintFilter();
         invalidateSelfIgnoreShape();
     }
-
 
     @Override
     public void setTint(@ColorInt int tintColor) {

@@ -4,10 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.os.Build.VERSION_CODES;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +37,6 @@ public class ShapePath {
         reset(0, 0);
     }
 
-    public ShapePath(float startX, float startY) {
-        reset(startX, startY);
-    }
 
     public void reset(float startX, float startY) {
         reset(startX, startY, ANGLE_UP, 0);
@@ -77,33 +72,9 @@ public class ShapePath {
         setEndY(y);
     }
 
-    @RequiresApi(VERSION_CODES.LOLLIPOP)
-    public void quadToPoint(float controlX, float controlY, float toX, float toY) {
-        PathQuadOperation operation = new PathQuadOperation();
-        operation.setControlX(controlX);
-        operation.setControlY(controlY);
-        operation.setEndX(toX);
-        operation.setEndY(toY);
-        operations.add(operation);
 
-        containsIncompatibleShadowOp = true;
 
-        setEndX(toX);
-        setEndY(toY);
-    }
 
-    @RequiresApi(VERSION_CODES.LOLLIPOP)
-    public void cubicToPoint(
-            float controlX1, float controlY1, float controlX2, float controlY2, float toX, float toY) {
-        PathCubicOperation operation =
-                new PathCubicOperation(controlX1, controlY1, controlX2, controlY2, toX, toY);
-        operations.add(operation);
-
-        containsIncompatibleShadowOp = true;
-
-        setEndX(toX);
-        setEndY(toY);
-    }
 
     public void addArc(
             float left, float top, float right, float bottom, float startAngle, float sweepAngle) {
@@ -351,33 +322,21 @@ public class ShapePath {
             return endX;
         }
 
-        private void setEndX(float endX) {
-            this.endX = endX;
-        }
 
         private float getControlY() {
             return controlY;
         }
 
-        private void setControlY(float controlY) {
-            this.controlY = controlY;
-        }
 
         private float getEndY() {
             return endY;
         }
 
-        private void setEndY(float endY) {
-            this.endY = endY;
-        }
 
         private float getControlX() {
             return controlX;
         }
 
-        private void setControlX(float controlX) {
-            this.controlX = controlX;
-        }
     }
 
     public static class PathArcOperation extends PathOperation {
@@ -459,94 +418,6 @@ public class ShapePath {
 
         private void setSweepAngle(float sweepAngle) {
             this.sweepAngle = sweepAngle;
-        }
-    }
-
-
-    public static class PathCubicOperation extends PathOperation {
-
-        private float controlX1;
-
-        private float controlY1;
-
-        private float controlX2;
-
-        private float controlY2;
-
-        private float endX;
-
-        private float endY;
-
-        public PathCubicOperation(
-                float controlX1,
-                float controlY1,
-                float controlX2,
-                float controlY2,
-                float endX,
-                float endY) {
-            setControlX1(controlX1);
-            setControlY1(controlY1);
-            setControlX2(controlX2);
-            setControlY2(controlY2);
-            setEndX(endX);
-            setEndY(endY);
-        }
-
-        @Override
-        public void applyToPath(@NonNull Matrix transform, @NonNull Path path) {
-            Matrix inverse = matrix;
-            transform.invert(inverse);
-            path.transform(inverse);
-            path.cubicTo(controlX1, controlY1, controlX2, controlY2, endX, endY);
-            path.transform(transform);
-        }
-
-        private float getControlX1() {
-            return controlX1;
-        }
-
-        private void setControlX1(float controlX1) {
-            this.controlX1 = controlX1;
-        }
-
-        private float getControlY1() {
-            return controlY1;
-        }
-
-        private void setControlY1(float controlY1) {
-            this.controlY1 = controlY1;
-        }
-
-        private float getControlX2() {
-            return controlX2;
-        }
-
-        private void setControlX2(float controlX2) {
-            this.controlX2 = controlX2;
-        }
-
-        private float getControlY2() {
-            return controlY1;
-        }
-
-        private void setControlY2(float controlY2) {
-            this.controlY2 = controlY2;
-        }
-
-        private float getEndX() {
-            return endX;
-        }
-
-        private void setEndX(float endX) {
-            this.endX = endX;
-        }
-
-        private float getEndY() {
-            return endY;
-        }
-
-        private void setEndY(float endY) {
-            this.endY = endY;
         }
     }
 }

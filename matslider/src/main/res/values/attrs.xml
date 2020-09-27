@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="ThemeEnforcement">
-        <attr name="enforceMaterialTheme" format="boolean" />
-        <attr name="enforceTextAppearance" format="boolean" />
-
-        <attr name="android:textAppearance" />
-    </declare-styleable>
-
     <declare-styleable name="Insets">
         <attr name="paddingBottomSystemWindowInsets" format="boolean" />
         <attr name="paddingLeftSystemWindowInsets" format="boolean" />
         <attr name="paddingRightSystemWindowInsets" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="MaterialTextAppearance" parent="TextAppearance">
-        <attr name="android:lineHeight" />
-        <attr name="lineHeight" format="dimension" />
-        <attr name="android:letterSpacing" />
-    </declare-styleable>
 
     <declare-styleable name="MaterialShape">
         <attr name="shapeAppearance" format="reference" />
@@ -30,52 +18,9 @@
         <attr name="cornerSizeTopRight" format="dimension|fraction" />
         <attr name="cornerSizeBottomRight" format="dimension|fraction" />
         <attr name="cornerSizeBottomLeft" format="dimension|fraction" />
-
-        <attr name="cornerFamily" format="enum">
-            <enum name="rounded" value="0" />
-            <enum name="cut" value="1" />
-        </attr>
-        <attr name="cornerFamilyTopLeft" format="enum">
-            <enum name="rounded" value="0" />
-            <enum name="cut" value="1" />
-        </attr>
-        <attr name="cornerFamilyTopRight" format="enum">
-            <enum name="rounded" value="0" />
-            <enum name="cut" value="1" />
-        </attr>
-        <attr name="cornerFamilyBottomRight" format="enum">
-            <enum name="rounded" value="0" />
-            <enum name="cut" value="1" />
-        </attr>
-        <attr name="cornerFamilyBottomLeft" format="enum">
-            <enum name="rounded" value="0" />
-            <enum name="cut" value="1" />
-        </attr>
     </declare-styleable>
 
-
-    <public name="sliderStyle" type="attr" />
-    <public name="haloColor" type="attr" />
-    <public name="haloRadius" type="attr" />
-    <public name="labelBehavior" type="attr" />
-    <public name="labelStyle" type="attr" />
-    <public name="thumbColor" type="attr" />
-    <public name="thumbElevation" type="attr" />
-    <public name="thumbRadius" type="attr" />
-    <public name="thumbStrokeColor" type="attr" />
-    <public name="thumbStrokeWidth" type="attr" />
-    <public name="tickColor" type="attr" />
-    <public name="tickColorActive" type="attr" />
-    <public name="tickColorInactive" type="attr" />
-    <public name="tickVisible" type="attr" />
-    <public name="trackColorActive" type="attr" />
-    <public name="trackColorInactive" type="attr" />
-    <public name="trackHeight" type="attr" />
-    <public name="values" type="attr" />
-    <attr name="colorSurface" format="color" />
-
     <public name="Widget.MaterialComponents.Slider" type="style" />
-
 
     <declare-styleable name="Slider">
         <attr name="android:value" />
@@ -101,7 +46,6 @@
         <attr name="thumbStrokeColor" format="color" />
 
         <attr name="thumbStrokeWidth" format="dimension" />
-
 
         <attr name="tickColor" format="color" />
 
@@ -130,5 +74,6 @@
     <attr name="colorPrimaryVariant" format="color" />
     <attr name="colorOnPrimary" format="color" />
     <attr name="colorOnSurface" format="color" />
+    <attr name="colorSurface" format="color" />
 
 </resources>
