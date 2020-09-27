@@ -1,0 +1,3 @@
+include ':matslider'
+include ':app'
+rootProject.name = "ATests"
