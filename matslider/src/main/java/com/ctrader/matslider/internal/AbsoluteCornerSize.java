@@ -19,10 +19,6 @@ public final class AbsoluteCornerSize implements CornerSize {
     return size;
   }
 
-  public float getCornerSize() {
-    return size;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {

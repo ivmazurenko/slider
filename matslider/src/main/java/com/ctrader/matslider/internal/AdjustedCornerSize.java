@@ -1,4 +1,3 @@
-
 package com.ctrader.matslider.internal;
 
 import android.graphics.RectF;

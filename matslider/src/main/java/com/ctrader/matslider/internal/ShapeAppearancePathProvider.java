@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.UiThread;
 
-
 public class ShapeAppearancePathProvider {
 
   private static class Lazy {
@@ -60,44 +59,28 @@ public class ShapeAppearancePathProvider {
     return Lazy.INSTANCE;
   }
 
-  /**
-   * Writes the given {@link ShapeAppearanceModel} to {@code path}
-   *
-   * @param shapeAppearanceModel The shape to be applied in the path.
-   * @param interpolation the desired interpolation.
-   * @param bounds the desired bounds for the path.
-   * @param path the returned path out-var.
-   */
+
   public void calculatePath(
-      ShapeAppearanceModel shapeAppearanceModel,
-      float interpolation,
-      RectF bounds,
-      @NonNull Path path) {
+          ShapeAppearanceModel shapeAppearanceModel,
+          float interpolation,
+          RectF bounds,
+          @NonNull Path path) {
     calculatePath(shapeAppearanceModel, interpolation, bounds, null, path);
   }
 
-  /**
-   * Writes the given {@link ShapeAppearanceModel} to {@code path}
-   *
-   * @param shapeAppearanceModel The shape to be applied in the path.
-   * @param interpolation the desired interpolation.
-   * @param bounds the desired bounds for the path.
-   * @param pathListener the path
-   * @param path the returned path out-var.
-   */
   public void calculatePath(
-      ShapeAppearanceModel shapeAppearanceModel,
-      float interpolation,
-      RectF bounds,
-      PathListener pathListener,
-      @NonNull Path path) {
+          ShapeAppearanceModel shapeAppearanceModel,
+          float interpolation,
+          RectF bounds,
+          PathListener pathListener,
+          @NonNull Path path) {
     path.rewind();
     overlappedEdgePath.rewind();
     boundsPath.rewind();
     boundsPath.addRect(bounds, Direction.CW);
     ShapeAppearancePathSpec spec =
-        new ShapeAppearancePathSpec(
-            shapeAppearanceModel, interpolation, bounds, pathListener, path);
+            new ShapeAppearancePathSpec(
+                    shapeAppearanceModel, interpolation, bounds, pathListener, path);
 
     // Calculate the transformations (rotations and translations) necessary for each edge and
     // corner treatment.
@@ -123,7 +106,7 @@ public class ShapeAppearancePathProvider {
   private void setCornerPathAndTransform(@NonNull ShapeAppearancePathSpec spec, int index) {
     CornerSize size = getCornerSizeForIndex(index, spec.shapeAppearanceModel);
     getCornerTreatmentForIndex(index, spec.shapeAppearanceModel)
-        .getCornerPath(cornerPaths[index], 90, spec.interpolation, spec.bounds, size);
+            .getCornerPath(cornerPaths[index], 90, spec.interpolation, spec.bounds, size);
 
     float edgeAngle = angleOfEdge(index);
     cornerTransforms[index].reset();
@@ -178,8 +161,8 @@ public class ShapeAppearancePathProvider {
     shapePath.applyToPath(edgeTransforms[index], edgePath);
 
     if (edgeIntersectionCheckEnabled
-        && VERSION.SDK_INT >= VERSION_CODES.KITKAT
-        && (edgeTreatment.forceIntersection()
+            && VERSION.SDK_INT >= VERSION_CODES.KITKAT
+            && (edgeTreatment.forceIntersection()
             || pathOverlapsCorner(edgePath, index)
             || pathOverlapsCorner(edgePath, nextIndex))) {
 
@@ -235,7 +218,7 @@ public class ShapeAppearancePathProvider {
   }
 
   private CornerTreatment getCornerTreatmentForIndex(
-      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
+          int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
     switch (index) {
       case 1:
         return shapeAppearanceModel.getBottomRightCorner();
@@ -250,7 +233,7 @@ public class ShapeAppearancePathProvider {
   }
 
   private CornerSize getCornerSizeForIndex(
-      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
+          int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
     switch (index) {
       case 1:
         return shapeAppearanceModel.getBottomRightCornerSize();
@@ -265,7 +248,7 @@ public class ShapeAppearancePathProvider {
   }
 
   private EdgeTreatment getEdgeTreatmentForIndex(
-      int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
+          int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
     switch (index) {
       case 1:
         return shapeAppearanceModel.getBottomEdge();
@@ -301,27 +284,29 @@ public class ShapeAppearancePathProvider {
     return 90 * (index + 1 % 4);
   }
 
-  void setEdgeIntersectionCheckEnable(boolean enable) {
-    edgeIntersectionCheckEnabled = enable;
-  }
-
-  /** Necessary information to map a {@link ShapeAppearanceModel} into a Path. */
+  /**
+   * Necessary information to map a {@link ShapeAppearanceModel} into a Path.
+   */
   static final class ShapeAppearancePathSpec {
 
-    @NonNull public final ShapeAppearanceModel shapeAppearanceModel;
-    @NonNull public final Path path;
-    @NonNull public final RectF bounds;
+    @NonNull
+    public final ShapeAppearanceModel shapeAppearanceModel;
+    @NonNull
+    public final Path path;
+    @NonNull
+    public final RectF bounds;
 
-    @Nullable public final PathListener pathListener;
+    @Nullable
+    public final PathListener pathListener;
 
     public final float interpolation;
 
     ShapeAppearancePathSpec(
-        @NonNull ShapeAppearanceModel shapeAppearanceModel,
-        float interpolation,
-        RectF bounds,
-        @Nullable PathListener pathListener,
-        Path path) {
+            @NonNull ShapeAppearanceModel shapeAppearanceModel,
+            float interpolation,
+            RectF bounds,
+            @Nullable PathListener pathListener,
+            Path path) {
       this.pathListener = pathListener;
       this.shapeAppearanceModel = shapeAppearanceModel;
       this.interpolation = interpolation;

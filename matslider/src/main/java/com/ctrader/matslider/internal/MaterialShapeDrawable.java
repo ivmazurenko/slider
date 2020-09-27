@@ -1,24 +1,7 @@
-/*
- * Copyright 2017 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.ctrader.matslider.internal;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -43,20 +26,16 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Looper;
-import android.util.AttributeSet;
 import android.util.Log;
 
-import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.core.graphics.drawable.TintAwareDrawable;
 import androidx.core.util.ObjectsCompat;
 
-import com.ctrader.matslider.R;
 import com.ctrader.matslider.internal.ShapeAppearanceModel.CornerSizeUnaryOperator;
 import com.ctrader.matslider.internal.ShapeAppearancePathProvider.PathListener;
 import com.ctrader.matslider.internal.ShapePath.ShadowCompatOperation;
@@ -131,40 +110,10 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
     private boolean shadowBitmapDrawingEnable = true;
 
 
-    @NonNull
-    public static MaterialShapeDrawable createWithElevationOverlay(Context context) {
-        return createWithElevationOverlay(context, 0);
-    }
-
-
-    @NonNull
-    public static MaterialShapeDrawable createWithElevationOverlay(Context context, float elevation) {
-        int colorSurface =
-                getColor(
-                        context, R.attr.colorSurface, MaterialShapeDrawable.class.getSimpleName());
-        MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
-        materialShapeDrawable.setFillColor(ColorStateList.valueOf(colorSurface));
-        materialShapeDrawable.setElevation(elevation);
-        return materialShapeDrawable;
-    }
-
-    @ColorInt
-    private static int getColor(
-            Context context, @AttrRes int colorAttributeResId, String errorMessageComponent) {
-        return MaterialAttributes.resolveOrThrow(context, colorAttributeResId, errorMessageComponent);
-    }
-
     public MaterialShapeDrawable() {
         this(new ShapeAppearanceModel());
     }
 
-    public MaterialShapeDrawable(
-            @NonNull Context context,
-            @Nullable AttributeSet attrs,
-            @AttrRes int defStyleAttr,
-            @StyleRes int defStyleRes) {
-        this(ShapeAppearanceModel.builder(context, attrs, defStyleAttr, defStyleRes).build());
-    }
 
     public MaterialShapeDrawable(@NonNull ShapeAppearanceModel shapeAppearanceModel) {
         this(new MaterialShapeDrawableState(shapeAppearanceModel));
@@ -268,40 +217,12 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         invalidateSelfIgnoreShape();
     }
 
-    @Nullable
-    public ColorStateList getTintList() {
-        return drawableState.tintList;
-    }
-
-    @Nullable
-    public ColorStateList getStrokeTintList() {
-        return drawableState.strokeTintList;
-    }
 
     @Override
     public void setTint(@ColorInt int tintColor) {
         setTintList(ColorStateList.valueOf(tintColor));
     }
 
-    public void setStrokeTint(ColorStateList tintList) {
-        drawableState.strokeTintList = tintList;
-        updateTintFilter();
-        invalidateSelfIgnoreShape();
-    }
-
-    public void setStrokeTint(@ColorInt int tintColor) {
-        setStrokeTint(ColorStateList.valueOf(tintColor));
-    }
-
-    public void setStroke(float strokeWidth, @ColorInt int strokeColor) {
-        setStrokeWidth(strokeWidth);
-        setStrokeColor(ColorStateList.valueOf(strokeColor));
-    }
-
-    public void setStroke(float strokeWidth, @Nullable ColorStateList strokeColor) {
-        setStrokeWidth(strokeWidth);
-        setStrokeColor(strokeColor);
-    }
 
     public float getStrokeWidth() {
         return drawableState.strokeWidth;
@@ -347,23 +268,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         return rectF;
     }
 
-    public void setCornerSize(float cornerSize) {
-        setShapeAppearanceModel(drawableState.shapeAppearanceModel.withCornerSize(cornerSize));
-    }
-
-    public void setCornerSize(@NonNull CornerSize cornerSize) {
-        setShapeAppearanceModel(drawableState.shapeAppearanceModel.withCornerSize(cornerSize));
-    }
-
-    public boolean isPointInTransparentRegion(int x, int y) {
-        return getTransparentRegion().contains(x, y);
-    }
-
-    @CompatibilityShadowMode
-    public int getShadowCompatibilityMode() {
-        return drawableState.shadowCompatMode;
-    }
-
     @Override
     public boolean getPadding(@NonNull Rect padding) {
         if (drawableState.padding != null) {
@@ -372,15 +276,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         } else {
             return super.getPadding(padding);
         }
-    }
-
-    public void setPadding(int left, int top, int right, int bottom) {
-        if (drawableState.padding == null) {
-            drawableState.padding = new Rect();
-        }
-
-        drawableState.padding.set(left, top, right, bottom);
-        invalidateSelf();
     }
 
     public void setShadowCompatibilityMode(@CompatibilityShadowMode int mode) {
@@ -402,38 +297,10 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
                 shadowEnabled ? SHADOW_COMPAT_MODE_DEFAULT : SHADOW_COMPAT_MODE_NEVER);
     }
 
-    public boolean isElevationOverlayEnabled() {
-        return false;
-    }
-
 
     @ColorInt
     private int compositeElevationOverlayIfNeeded(@ColorInt int backgroundColor) {
-        float elevation = getZ() + getParentAbsoluteElevation();
         return backgroundColor;
-    }
-
-    public float getInterpolation() {
-        return drawableState.interpolation;
-    }
-
-    public void setInterpolation(float interpolation) {
-        if (drawableState.interpolation != interpolation) {
-            drawableState.interpolation = interpolation;
-            pathDirty = true;
-            invalidateSelf();
-        }
-    }
-
-    public float getParentAbsoluteElevation() {
-        return drawableState.parentAbsoluteElevation;
-    }
-
-    public void setParentAbsoluteElevation(float parentAbsoluteElevation) {
-        if (drawableState.parentAbsoluteElevation != parentAbsoluteElevation) {
-            drawableState.parentAbsoluteElevation = parentAbsoluteElevation;
-            updateZ();
-        }
     }
 
     public float getElevation() {
@@ -451,20 +318,11 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         return drawableState.translationZ;
     }
 
-    public void setTranslationZ(float translationZ) {
-        if (drawableState.translationZ != translationZ) {
-            drawableState.translationZ = translationZ;
-            updateZ();
-        }
-    }
 
     public float getZ() {
         return getElevation() + getTranslationZ();
     }
 
-    public void setZ(float z) {
-        setTranslationZ(z - getElevation());
-    }
 
     private void updateZ() {
         float z = getZ();
@@ -485,39 +343,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         setElevation(shadowElevation);
     }
 
-    public int getShadowVerticalOffset() {
-        return drawableState.shadowCompatOffset;
-    }
-
-    public void setShadowBitmapDrawingEnable(boolean enable) {
-        shadowBitmapDrawingEnable = enable;
-    }
-
-    public void setEdgeIntersectionCheckEnable(boolean enable) {
-        pathProvider.setEdgeIntersectionCheckEnable(enable);
-    }
-
-    public void setShadowVerticalOffset(int shadowOffset) {
-        if (drawableState.shadowCompatOffset != shadowOffset) {
-            drawableState.shadowCompatOffset = shadowOffset;
-            invalidateSelfIgnoreShape();
-        }
-    }
-
-    public int getShadowCompatRotation() {
-        return drawableState.shadowCompatRotation;
-    }
-
-    public void setShadowCompatRotation(int shadowRotation) {
-        if (drawableState.shadowCompatRotation != shadowRotation) {
-            drawableState.shadowCompatRotation = shadowRotation;
-            invalidateSelfIgnoreShape();
-        }
-    }
-
-    public int getShadowRadius() {
-        return drawableState.shadowCompatRadius;
-    }
 
     @Deprecated
     public void setShadowRadius(int shadowRadius) {
@@ -529,16 +354,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
                 || (!isRoundRect() && !path.isConvex() && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q);
     }
 
-    public float getScale() {
-        return drawableState.scale;
-    }
-
-    public void setScale(float scale) {
-        if (drawableState.scale != scale) {
-            drawableState.scale = scale;
-            invalidateSelf();
-        }
-    }
 
     @Override
     public void invalidateSelf() {
@@ -550,27 +365,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         super.invalidateSelf();
     }
 
-    public void setUseTintColorForShadow(boolean useTintColorForShadow) {
-        if (drawableState.useTintColorForShadow != useTintColorForShadow) {
-            drawableState.useTintColorForShadow = useTintColorForShadow;
-            invalidateSelf();
-        }
-    }
-
-    public void setShadowColor(int shadowColor) {
-        shadowRenderer.setShadowColor(shadowColor);
-        drawableState.useTintColorForShadow = false;
-        invalidateSelfIgnoreShape();
-    }
-
-    public Style getPaintStyle() {
-        return drawableState.paintStyle;
-    }
-
-    public void setPaintStyle(Style paintStyle) {
-        drawableState.paintStyle = paintStyle;
-        invalidateSelfIgnoreShape();
-    }
 
     private boolean hasCompatShadow() {
         return drawableState.shadowCompatMode != SHADOW_COMPAT_MODE_NEVER
@@ -670,11 +464,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
 
         // Restore the canvas to the same size it was before drawing any shadows.
         canvas.restore();
-    }
-
-    protected void drawShape(
-            @NonNull Canvas canvas, @NonNull Paint paint, @NonNull Path path, @NonNull RectF bounds) {
-        drawShape(canvas, paint, path, drawableState.shapeAppearanceModel, bounds);
     }
 
     private void drawShape(
@@ -966,27 +755,6 @@ public class MaterialShapeDrawable extends Drawable implements TintAwareDrawable
         return drawableState
                 .shapeAppearanceModel
                 .getTopLeftCornerSize()
-                .getCornerSize(getBoundsAsRectF());
-    }
-
-    public float getTopRightCornerResolvedSize() {
-        return drawableState
-                .shapeAppearanceModel
-                .getTopRightCornerSize()
-                .getCornerSize(getBoundsAsRectF());
-    }
-
-    public float getBottomLeftCornerResolvedSize() {
-        return drawableState
-                .shapeAppearanceModel
-                .getBottomLeftCornerSize()
-                .getCornerSize(getBoundsAsRectF());
-    }
-
-    public float getBottomRightCornerResolvedSize() {
-        return drawableState
-                .shapeAppearanceModel
-                .getBottomRightCornerSize()
                 .getCornerSize(getBoundsAsRectF());
     }
 

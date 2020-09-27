@@ -15,11 +15,6 @@ public final class RelativeCornerSize implements CornerSize {
         this.percent = percent;
     }
 
-    @FloatRange(from = 0.0f, to = 1.0f)
-    public float getRelativePercent() {
-        return percent;
-    }
-
     @Override
     public float getCornerSize(@NonNull RectF bounds) {
         return percent * bounds.height();
