@@ -27,7 +27,6 @@ import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.ctrader.matslider.internal.ThemeEnforcement;
 import com.ctrader.matslider.RangeSlider.OnChangeListener;
 import com.ctrader.matslider.RangeSlider.OnSliderTouchListener;
 
@@ -65,8 +64,7 @@ public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSli
   public RangeSlider(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     TypedArray a =
-        ThemeEnforcement.obtainStyledAttributes(
-            context, attrs, R.styleable.RangeSlider, defStyleAttr, DEF_STYLE_RES);
+            context.obtainStyledAttributes(attrs, R.styleable.RangeSlider, defStyleAttr, DEF_STYLE_RES);
     if (a.hasValue(R.styleable.RangeSlider_values)) {
       int valuesId = a.getResourceId(R.styleable.RangeSlider_values, 0);
       TypedArray values = a.getResources().obtainTypedArray(valuesId);
@@ -121,37 +119,17 @@ public class RangeSlider extends BaseSlider<RangeSlider, OnChangeListener, OnSli
     return ret;
   }
 
-  /**
-   * Returns the minimum separation between two thumbs
-   *
-   * @see #setMinSeparation(float)
-   * @attr ref com.google.android.material.R.styleable#RangeSlider_minSeparation
-   */
   @Override
   public float getMinSeparation() {
     return minSeparation;
   }
 
-  /**
-   * Sets the minimum separation between two thumbs
-   *
-   * @see #getMinSeparation()
-   * @attr ref com.google.android.material.R.styleable#RangeSlider_minSeparation
-   */
   public void setMinSeparation(@Dimension float minSeparation) {
     this.minSeparation = minSeparation;
     separationUnit = UNIT_PX;
     setSeparationUnit(separationUnit);
   }
 
-  /**
-   * Sets the minimum separation in the value scale. Useful to create minimum ranges, between
-   * thumbs.
-   *
-   * @see #getMinSeparation()
-   * @see #setMinSeparation(float)
-   * @attr ref com.google.android.material.R.styleable#RangeSlider_minSeparation
-   */
   public void setMinSeparationValue(float minSeparation) {
     this.minSeparation = minSeparation;
     separationUnit = UNIT_VALUE;

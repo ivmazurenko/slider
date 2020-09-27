@@ -124,11 +124,10 @@
         <attr name="values" format="reference" />
         <attr name="minSeparation" format="dimension" />
     </declare-styleable>
-    
+
     <attr name="minTouchTargetSize" format="dimension" />
     <attr name="sliderStyle" format="reference" />
     <attr name="colorPrimaryVariant" format="color" />
-    <attr name="isMaterialTheme" format="boolean" />
     <attr name="colorOnPrimary" format="color" />
     <attr name="colorOnSurface" format="color" />
 

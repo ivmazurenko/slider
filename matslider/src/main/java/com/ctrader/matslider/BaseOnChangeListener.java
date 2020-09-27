@@ -1,7 +1,6 @@
 package com.ctrader.matslider;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo.Scope;
 
 public interface BaseOnChangeListener<S> {
 

@@ -63,7 +63,6 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.RangeInfoCompat;
 import androidx.customview.widget.ExploreByTouchHelper;
 
-import com.ctrader.matslider.internal.ThemeEnforcement;
 import com.ctrader.matslider.internal.MaterialResources;
 import com.ctrader.matslider.internal.CornerFamily;
 import com.ctrader.matslider.internal.MaterialShapeDrawable;
@@ -262,9 +261,7 @@ abstract class BaseSlider<
     }
 
     private void processAttributes(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray a =
-                ThemeEnforcement.obtainStyledAttributes(
-                        context, attrs, R.styleable.Slider, defStyleAttr, DEF_STYLE_RES);
+        TypedArray a =context.obtainStyledAttributes(attrs, R.styleable.Slider, defStyleAttr, DEF_STYLE_RES);
         valueFrom = a.getFloat(R.styleable.Slider_android_valueFrom, 0.0f);
         valueTo = a.getFloat(R.styleable.Slider_android_valueTo, 1.0f);
         setValues(valueFrom);
