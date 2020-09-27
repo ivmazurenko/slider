@@ -1,20 +1,25 @@
 package com.ctrader.matslider.internal;
 
+import android.graphics.RectF;
+
 import androidx.annotation.NonNull;
 
-public class RoundedCornerTreatment extends CornerTreatment {
+public class RoundedCornerTreatment {
 
     float radius = -1;
 
     public RoundedCornerTreatment() {
     }
 
-    @Deprecated
-    public RoundedCornerTreatment(float radius) {
-        this.radius = radius;
+    public void getCornerPath(
+            @NonNull ShapePath shapePath,
+            float angle,
+            float interpolation,
+            @NonNull RectF bounds,
+            @NonNull CornerSize size) {
+        getCornerPath(shapePath, angle, interpolation, size.getCornerSize(bounds));
     }
-
-    @Override
+    
     public void getCornerPath(
             @NonNull ShapePath shapePath, float angle, float interpolation, float radius) {
         shapePath.reset(0, radius * interpolation, ShapePath.ANGLE_LEFT, 180 - angle);

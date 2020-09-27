@@ -60,9 +60,6 @@ public class ShadowRenderer {
         shadowPaint.setColor(shadowStartColor);
     }
 
-    /**
-     * Draws an edge shadow on the canvas in the current bounds with the matrix transform applied.
-     */
     public void drawEdgeShadow(
             @NonNull Canvas canvas, @Nullable Matrix transform, @NonNull RectF bounds, int elevation) {
         bounds.bottom += elevation;

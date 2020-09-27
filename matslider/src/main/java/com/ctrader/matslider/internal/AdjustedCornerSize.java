@@ -3,13 +3,9 @@ package com.ctrader.matslider.internal;
 import android.graphics.RectF;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 
 import java.util.Arrays;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
-@RestrictTo(LIBRARY_GROUP)
 public final class AdjustedCornerSize implements CornerSize {
 
     private final CornerSize other;

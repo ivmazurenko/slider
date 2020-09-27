@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.ctrader.matslider;
 
 import android.content.Context;
@@ -64,7 +48,6 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.RangeInfoCom
 import androidx.customview.widget.ExploreByTouchHelper;
 
 import com.ctrader.matslider.internal.MaterialResources;
-import com.ctrader.matslider.internal.CornerFamily;
 import com.ctrader.matslider.internal.MaterialShapeDrawable;
 import com.ctrader.matslider.internal.ShapeAppearanceModel;
 
@@ -78,7 +61,6 @@ import java.util.List;
 
 import static androidx.core.math.MathUtils.clamp;
 import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.RangeInfoCompat.RANGE_TYPE_FLOAT;
-
 import static java.lang.Float.compare;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
@@ -589,7 +571,7 @@ abstract class BaseSlider<
         maybeIncreaseTrackSidePadding();
 
         thumbDrawable.setShapeAppearanceModel(
-                ShapeAppearanceModel.builder().setAllCorners(CornerFamily.ROUNDED, thumbRadius).build());
+                ShapeAppearanceModel.builder().setAllCorners(thumbRadius).build());
         thumbDrawable.setBounds(0, 0, thumbRadius * 2, thumbRadius * 2);
 
         postInvalidate();

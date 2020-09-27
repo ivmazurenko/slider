@@ -27,13 +27,10 @@ public class ShapeAppearancePathProvider {
     void onEdgePathCreated(ShapePath edgePath, Matrix transform, int count);
   }
 
-  // Inter-method state. This class works under the assumption that there is only one exposed
-  // method, the method is responsible for correctly reset state.
   private final ShapePath[] cornerPaths = new ShapePath[4];
   private final Matrix[] cornerTransforms = new Matrix[4];
   private final Matrix[] edgeTransforms = new Matrix[4];
 
-  // Pre-allocated objects that are re-used several times during path computation and rendering.
   private final PointF pointF = new PointF();
   private final Path overlappedEdgePath = new Path();
   private final Path boundsPath = new Path();
@@ -97,7 +94,6 @@ public class ShapeAppearancePathProvider {
     path.close();
     overlappedEdgePath.close();
 
-    // Union with the edge paths that had an intersection to handle overlaps.
     if (VERSION.SDK_INT >= VERSION_CODES.KITKAT && !overlappedEdgePath.isEmpty()) {
       path.op(overlappedEdgePath, Op.UNION);
     }
@@ -217,7 +213,7 @@ public class ShapeAppearancePathProvider {
     }
   }
 
-  private CornerTreatment getCornerTreatmentForIndex(
+  private RoundedCornerTreatment getCornerTreatmentForIndex(
           int index, @NonNull ShapeAppearanceModel shapeAppearanceModel) {
     switch (index) {
       case 1:
